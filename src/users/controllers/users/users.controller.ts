@@ -49,12 +49,12 @@ export class UsersController {
     console.log(userData);
     return {};
   }
-  @Get(':id/:postid') //Passing in the name of the parameter
+  @Get(':id') //Passing in the name of the parameter
   getUserById(
     @Param('id') id: string,
-    @Param('postid') postid: string /*Type annotate the arguement*/,
+    /*Type annotate the arguement*/
   ) {
     console.log(id);
-    return { id, postid };
+    return { id };
   }
 }
