@@ -3,10 +3,8 @@ import {
   Controller,
   Get,
   Param,
-  ParseBoolPipe,
   ParseIntPipe,
   Post,
-  Query,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -18,10 +16,10 @@ import { UsersService } from 'src/users/services/users/users.service';
 export class UsersController {
   constructor(private usersService: UsersService) {}
   @Get() //Get Decoractor:Method Decorator from nestjs common
-  getUsers(@Query('sortDesc', ParseBoolPipe) sortDesc: boolean) {
-    console.log(sortDesc);
+  getUsers() {
+    // console.log(sortDesc);
     //Method to typically return a list of users to the user consuming this endpoint.
-    return [{ userName: 'Anson', email: 'anson@anson.com' }];
+    return this.usersService.fetchUsers();
   }
   @Get('posts')
   getUsersPosts() {
