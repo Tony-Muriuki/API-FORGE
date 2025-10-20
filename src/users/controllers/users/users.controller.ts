@@ -12,9 +12,11 @@ import {
 } from '@nestjs/common';
 // import type { Response } from 'express';
 import { CreateUserDto } from 'src/users/dto/CreateUser.dto';
+import { UsersService } from 'src/users/services/users/users.service';
 
 @Controller('users')
 export class UsersController {
+  constructor(private usersService: UsersService) {}
   @Get() //Get Decoractor:Method Decorator from nestjs common
   getUsers(@Query('sortDesc', ParseBoolPipe) sortDesc: boolean) {
     console.log(sortDesc);
