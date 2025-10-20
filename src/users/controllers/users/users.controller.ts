@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpException,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Post,
@@ -60,7 +62,7 @@ export class UsersController {
   @UsePipes(new ValidationPipe())
   createUser(@Body() userData: CreateUserDto) {
     console.log(userData);
-    return {};
+    return this.usersService.createUser(userData);
   }
   @Get(':id') //Passing in the name of the parameter
   getUserById(
@@ -68,6 +70,9 @@ export class UsersController {
     /*Type annotate the arguement*/
   ) {
     console.log(id);
-    return { id };
+    const user = this.usersService.fetchUserById(id);
+    if (!user)
+      throw new HttpException('User Not found', HttpStatus.BAD_REQUEST);
+    return user;
   }
 }

@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CreateUserType } from 'src/users/utils/types';
 
 @Injectable()
 export class UsersService {
@@ -12,5 +13,16 @@ export class UsersService {
   ];
   fetchUsers() {
     return this.fakeUsers; //mock data
+  }
+
+  // CreateUsers Method
+  createUser(usersDetails: CreateUserType) {
+    this.fakeUsers.push(usersDetails);
+    return;
+  }
+
+  // FetchUserById
+  fetchUserById(id: number) {
+    return { id, userName: 'Anson', email: 'anson@anson.com' };
   }
 }
