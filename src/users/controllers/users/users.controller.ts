@@ -1,11 +1,21 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 // import type { Response } from 'express';
 import { CreateUserDto } from 'src/users/dto/CreateUser.dto';
 
 @Controller('users')
 export class UsersController {
   @Get() //Get Decoractor:Method Decorator from nestjs common
-  getUsers() {
+  getUsers(@Query('sortBy') sortBy: string) {
+    console.log(sortBy);
     //Method to typically return a list of users to the user consuming this endpoint.
     return [{ userName: 'Anson', email: 'anson@anson.com' }];
   }
@@ -44,7 +54,8 @@ export class UsersController {
     ];
   }
 
-  @Post('')
+  @Post('create')
+  @UsePipes(new ValidationPipe())
   createUser(@Body() userData: CreateUserDto) {
     console.log(userData);
     return {};
