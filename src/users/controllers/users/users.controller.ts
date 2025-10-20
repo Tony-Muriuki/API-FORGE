@@ -3,6 +3,8 @@ import {
   Controller,
   Get,
   Param,
+  ParseBoolPipe,
+  ParseIntPipe,
   Post,
   Query,
   UsePipes,
@@ -14,8 +16,8 @@ import { CreateUserDto } from 'src/users/dto/CreateUser.dto';
 @Controller('users')
 export class UsersController {
   @Get() //Get Decoractor:Method Decorator from nestjs common
-  getUsers(@Query('sortBy') sortBy: string) {
-    console.log(sortBy);
+  getUsers(@Query('sortDesc', ParseBoolPipe) sortDesc: boolean) {
+    console.log(sortDesc);
     //Method to typically return a list of users to the user consuming this endpoint.
     return [{ userName: 'Anson', email: 'anson@anson.com' }];
   }
@@ -62,7 +64,7 @@ export class UsersController {
   }
   @Get(':id') //Passing in the name of the parameter
   getUserById(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     /*Type annotate the arguement*/
   ) {
     console.log(id);
