@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 // import type { Response } from 'express';
 import { CreateUserDto } from 'src/users/dto/CreateUser.dto';
+import { ValidateCreateUserPipe } from 'src/users/pipes/validate-create-user/validate-create-user.pipe';
 import { UsersService } from 'src/users/services/users/users.service';
 
 @Controller('users')
@@ -60,8 +61,8 @@ export class UsersController {
 
   @Post('create')
   @UsePipes(new ValidationPipe())
-  createUser(@Body() userData: CreateUserDto) {
-    console.log(userData);
+  createUser(@Body(ValidateCreateUserPipe) userData: CreateUserDto) {
+    console.log(isNaN(userData.age));
     return this.usersService.createUser(userData);
   }
   @Get(':id') //Passing in the name of the parameter
